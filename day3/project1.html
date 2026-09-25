@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <title>CORS Demo</title>
+</head>
+
+
+<body>
+
+
+    <button onclick="getStudent()">
+        Get Student
+    </button>
+
+
+    <h2 id="result"></h2>
+
+
+    <script>
+
+
+        async function getStudent() {
+
+
+            let response =
+                await fetch(
+                    "http://127.0.0.1:8000/student"
+                );
+
+
+            let data =
+                await response.json();
+
+
+            document.getElementById(
+                "result"
+            ).innerHTML =data.name +" "+ data.age
+        }
+
+
+    </script>
+
+
+</body>
+
+
+</html>
+
+
+
