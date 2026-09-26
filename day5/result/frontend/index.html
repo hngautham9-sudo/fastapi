@@ -1,0 +1,407 @@
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Result Portal</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Times New Roman", serif;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, #dbeafe 0%, transparent 35%),
+                radial-gradient(circle at bottom right, #e0e7ff 0%, transparent 35%),
+                linear-gradient(135deg, #f8fafc, #eef2ff);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            color: #1e293b;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 24px;
+
+            padding: 45px;
+
+            box-shadow:
+                0 25px 60px rgba(15, 23, 42, 0.12),
+                0 5px 15px rgba(15, 23, 42, 0.06);
+
+            animation: fadeIn 0.7s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #0f172a;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            font-size: 17px;
+            margin-bottom: 35px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        input {
+            flex: 1;
+            height: 52px;
+
+            border: 1.5px solid #cbd5e1;
+            border-radius: 12px;
+
+            padding: 0 18px;
+            font-family: "Times New Roman", serif;
+            font-size: 16px;
+
+            outline: none;
+            background: #ffffff;
+
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+        }
+
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+        button {
+            height: 52px;
+            padding: 0 28px;
+
+            border: none;
+            border-radius: 12px;
+
+            background: linear-gradient(
+                135deg,
+                #4f46e5,
+                #7c3aed
+            );
+
+            color: white;
+
+            font-family: "Times New Roman", serif;
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 18px rgba(79, 70, 229, 0.25);
+
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px rgba(79, 70, 229, 0.35);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #result {
+            width: 100%;
+        }
+
+        .student-card {
+            background: #ffffff;
+
+            border-radius: 18px;
+            padding: 28px;
+
+            border: 1px solid #e2e8f0;
+
+            box-shadow:
+                0 10px 30px rgba(15, 23, 42, 0.07);
+
+            animation: resultAppear 0.5s ease;
+        }
+
+        @keyframes resultAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .student-card h2 {
+            font-size: 28px;
+            color: #312e81;
+            margin-bottom: 20px;
+        }
+
+        .student-card p {
+            margin: 10px 0;
+            font-size: 17px;
+            color: #475569;
+        }
+
+        .student-card strong {
+            color: #1e293b;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 25px;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #312e81;
+            color: white;
+            padding: 14px;
+            font-size: 17px;
+            text-align: left;
+        }
+
+        td {
+            padding: 13px 14px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 16px;
+        }
+
+        tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+
+        tr:hover td {
+            background: #eef2ff;
+            transition: 0.2s;
+        }
+
+        .not-found {
+            background: #fff1f2;
+            border: 1px solid #fecdd3;
+            color: #dc2626;
+
+            padding: 18px;
+            border-radius: 12px;
+
+            text-align: center;
+            font-size: 17px;
+            font-weight: bold;
+
+            animation: resultAppear 0.4s ease;
+        }
+
+        @media (max-width: 650px) {
+
+            body {
+                padding: 15px;
+                align-items: flex-start;
+                padding-top: 30px;
+            }
+
+            .container {
+                padding: 25px 20px;
+                border-radius: 18px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .subtitle {
+                font-size: 15px;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .student-card {
+                padding: 20px;
+            }
+
+            .student-card h2 {
+                font-size: 24px;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th,
+            td {
+                padding: 10px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🎓 Student Result Portal</h1>
+
+        <div class="subtitle">
+            Search and view student academic results
+        </div>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="register_number"
+                placeholder="Enter Register Number"
+            >
+
+            <button onclick="searchResult()">
+                Search Result
+            </button>
+
+        </div>
+
+        <div id="result"></div>
+
+    </div>
+
+    <script>
+
+        async function searchResult() {
+
+            let registerNumber =
+                document.getElementById(
+                    "register_number"
+                ).value.trim();
+
+            if (registerNumber === "") {
+
+                document.getElementById("result").innerHTML =
+                    '<div class="not-found">Please enter a register number.</div>';
+
+                return;
+            }
+
+            let response =
+                await fetch(
+                    "http://127.0.0.1:8000/results"
+                );
+
+            let students =
+                await response.json();
+
+            let student =
+                students.find(
+                    student =>
+                        student.register_number === registerNumber
+                );
+
+            if (student) {
+
+                let output = `
+                    <div class="student-card">
+
+                        <h2>${student.student_name}</h2>
+
+                        <p>
+                            <strong>Register Number:</strong>
+                            ${student.register_number}
+                        </p>
+
+                        <p>
+                            <strong>Department:</strong>
+                            ${student.department}
+                        </p>
+
+                        <table>
+
+                            <tr>
+                                <th>Subject</th>
+                                <th>Grade</th>
+                            </tr>
+                `;
+
+                student.subjects.forEach(subject => {
+
+                    output += `
+                        <tr>
+                            <td>${subject.subject_name}</td>
+                            <td>${subject.grade}</td>
+                        </tr>
+                    `;
+
+                });
+
+                output += `
+                        </table>
+                    </div>
+                `;
+
+                document.getElementById("result").innerHTML =
+                    output;
+
+            } else {
+
+                document.getElementById("result").innerHTML =
+                    '<div class="not-found">Student Not Found</div>';
+
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
+```
